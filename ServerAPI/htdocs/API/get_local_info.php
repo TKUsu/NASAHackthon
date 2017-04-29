@@ -7,17 +7,21 @@ $longitude = isset($_GET["long"]) ? $_GET["long"] :"0.0";
 $access_key = isset($_GET["access_key"]) ? $_GET["access_key"] : "null"; //
 
 if($type!="null"&&($access_key==ACCESS_KEY_READ_ONLY||$access_key==ACCESS_KEY_READ_WRITE)){ // write value
+	
+	$sql = "";
 
-
-//$type  = "1,3";
-$typeArray = explode(",", $type);
-$typeLength = count($typeArray);
-$valueSet ="";
-  for($i =0;$i<(int)$typeLength;$i++){
-  	if((int)$i == ((int)$typeLength-1 ))  $valueSet = $valueSet . $typeArray[$i]; 
-  	else $valueSet = $valueSet . $typeArray[$i] ."," ; 
-  }	
-  // 
+	if($type=="all"){
+		$sql = "SELECT * FROM `info_location` LIMIT 40";
+	}else{
+	//$type  = "1,3";
+	$typeArray = explode(",", $type);
+	$typeLength = count($typeArray);
+	$valueSet ="";
+	  for($i =0;$i<(int)$typeLength;$i++){
+	  	if((int)$i == ((int)$typeLength-1 ))  $valueSet = $valueSet . $typeArray[$i]; 
+	  	else $valueSet = $valueSet . $typeArray[$i] ."," ; 
+	  }	
+  	// 
   	$lat_Max = (double) $latitude + (double)(1.0); 
   	$lat_Min = (double) $latitude - (double)(1.0); 
   	$long_Max = (double) $longitude + (double)(2.0); 
@@ -29,6 +33,7 @@ $valueSet ="";
     AND longitude <".$long_Max." AND longitude > ".$long_Min."
     LIMIT 30";
 	//echo $sql."<br>";
+	}
 	
 	$connection = mysqli_connect(DB_SERVERIP, DB_USERNAME, DB_PASSWORD,DB_DATABASE ) or die(ERROR_CHARACTER);
 	mysqli_query($connection, 'SET NAMES utf8'); // UTF8
