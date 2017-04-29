@@ -13,22 +13,26 @@ import CoreLocation
 class FilterViewController: UIViewController {
     
     var myLocation: CLLocation?
+    var FilterSwitch : UISwitch!
+    var FilterLabel:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ok", style: .plain, target: self, action: #selector(okAction))
+        
+        FilterSwitch = UISwitch()
         FilterSwitch.thumbTintColor = UIColor.orange
         FilterSwitch.tintColor = UIColor.blue
         FilterSwitch.onTintColor = UIColor.brown
         
         FilterSwitch.addTarget(self, action: "switchChanged", for: UIControlEvents.valueChanged)
         
-        //        (self, action: Selector(ViewController.onChange) , forControlEvents:.ValueChanged);)
-        //
-     
-        FilterSwitch.center = CGPoint(x : fullScreenSize 0.5 , y : fullScreenSize  0.5)
+
+//        (self, action: Selector(ViewController.onChange) , forControlEvents:.ValueChanged);)
+//        
+//        FilterSwitch.center = CGPoint(x : fullScreenSize 0.5 , y : fullScreenSize,  0.5)
+
         
         // Do any additional setup after loading the view.
 
@@ -42,17 +46,4 @@ class FilterViewController: UIViewController {
     func okAction() {
         
     }
-
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
