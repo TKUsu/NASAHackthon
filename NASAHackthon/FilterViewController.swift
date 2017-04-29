@@ -12,6 +12,8 @@ import CoreLocation
 class FilterViewController: UIViewController {
     
     var myLocation: CLLocation?
+    var type: String! = "0"
+    
     var FilterSwitch1 : UISwitch!
     var FilterSwitch2 : UISwitch!
     var FilterSwitch3 : UISwitch!
@@ -66,7 +68,7 @@ class FilterViewController: UIViewController {
     }
     
     func okAction() {
-        url_get()
+        url_get(location: myLocation!, type: type)
         self.dismiss(animated: true, completion: {});
     }
 }

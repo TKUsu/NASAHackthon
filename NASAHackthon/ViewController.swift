@@ -75,6 +75,12 @@ class ViewController: UIViewController  {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showSetting" {
             if let filterView = segue.destination as? FilterViewController{
+                guard mylocation == nil else {
+                    let alert = UIAlertController(title: "Location", message: "Your location isn't found", preferredStyle: .actionSheet)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
                 filterView.myLocation = self.mylocation
             }else{
                 print(segue.destination)
