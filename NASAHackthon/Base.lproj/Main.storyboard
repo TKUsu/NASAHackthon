@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,37 +20,9 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRc-Nf-0s1">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdX-1j-ahV">
-                                <rect key="frame" x="337" y="625" width="22" height="22"/>
-                                <connections>
-                                    <segue destination="0lB-L1-bsV" kind="show" id="GbB-6u-qtH"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bZ-Q4-FNu">
-                                <rect key="frame" x="337" y="569" width="22" height="22"/>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="IdX-1j-ahV" secondAttribute="trailing" id="0iW-9d-Jt0"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5bZ-Q4-FNu" secondAttribute="trailing" id="8gb-8u-kY7"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="IdX-1j-ahV" secondAttribute="bottom" constant="20" id="Obb-Or-Xeu"/>
-                            <constraint firstItem="KRc-Nf-0s1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Pik-e5-Oq2"/>
-                            <constraint firstAttribute="trailing" secondItem="KRc-Nf-0s1" secondAttribute="trailing" id="bup-jR-Kq6"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KRc-Nf-0s1" secondAttribute="bottom" id="idY-wb-FhI"/>
-                            <constraint firstItem="KRc-Nf-0s1" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="lwD-sl-igB"/>
-                            <constraint firstItem="IdX-1j-ahV" firstAttribute="top" secondItem="5bZ-Q4-FNu" secondAttribute="bottom" constant="34" id="qM3-Cf-bqb"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bDd-oR-qae"/>
-                    <connections>
-                        <outlet property="myMapView" destination="KRc-Nf-0s1" id="sRp-1d-b8C"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
