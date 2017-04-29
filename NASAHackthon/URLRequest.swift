@@ -21,7 +21,6 @@ func url_get(){
             print(response.result.value as Any)   // result of response serialization
             if let JSON = response.result.value {
                 print("JSON: \(JSON)")
-                
             }
             json = response.result.value as! String?
         }
