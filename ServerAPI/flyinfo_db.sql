@@ -50,6 +50,7 @@ CREATE TABLE `info_location` (
   `timestemp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `type_id` int(16) NOT NULL,
   `data_id` int(32) NOT NULL,
+  `shortcut_img_base64` text,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
   `altitude` double NOT NULL,
