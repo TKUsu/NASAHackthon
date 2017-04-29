@@ -11,22 +11,20 @@ import CoreLocation
 import GoogleMaps
 import Alamofire
 
-class ViewController: UIViewController,CLLocationManagerDelegate  {
+class ViewController: UIViewController  {
     
-    var mylocation: CLLocation?
     var locationButton: UIButton!
     var settingButton: UIButton!
     
     var mapView: GMSMapView!
-    
+    var mylocation: CLLocation?
     var locationManager = CLLocationManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        self.locationManager.delegate = self
-        locationManager.startUpdatingLocation()
+        startLocaitonManager()
         
         locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
         locationButton.backgroundColor = UIColor.green
@@ -66,16 +64,30 @@ class ViewController: UIViewController,CLLocationManagerDelegate  {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        mylocation = locations.last
-        
-        let camera = GMSCameraPosition.camera(withLatitude: (mylocation!.coordinate.latitude), longitude: (mylocation!.coordinate.longitude), zoom: 17.0)
-        
-        self.mapView?.animate(to: camera)
-        
-        //Finally stop updating location otherwise it will come again and again in this delegate
-        self.locationManager.stopUpdatingLocation()
+    func settingButtonAction(sender: UIButton!) {
+        /*  custom to present to other view
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
+            present(vc!, animated: true, completion: nil)
+            =============================================================*/
+        performSegue(withIdentifier: "showSetting", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSetting" {
+            if let filterView = segue.destination as? FilterViewController{
+                filterView.myLocation = self.mylocation
+            }else{
+                print(segue.destination)
+            }
+        }
+    }
+}
 
+//Google Map
+extension ViewController: CLLocationManagerDelegate{
+    func startLocaitonManager() {
+        self.locationManager.delegate = self
+        locationManager.startUpdatingLocation()
     }
     
     override func loadView() {
@@ -84,56 +96,36 @@ class ViewController: UIViewController,CLLocationManagerDelegate  {
         let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
         let map = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
         map.isMyLocationEnabled = true
-
+        
         self.mylocation = map.myLocation
         self.mapView = map
         
         view = map
         
         // Creates a marker in the center of the map.
-//        let marker = GMSMarker()
-//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-//        marker.title = "Sydney"
-//        marker.snippet = "Australia"
-//        marker.map = mapView
+        //        let marker = GMSMarker()
+        //        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+        //        marker.title = "Sydney"
+        //        marker.snippet = "Australia"
+        //        marker.map = mapView
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        mylocation = locations.last
+        myCamera()
+        //Finally stop updating location otherwise it will come again and again in this delegate
+        self.locationManager.stopUpdatingLocation()
     }
     
     func locationButtonAction(sender: UIButton!){
         print("My Location: \(mylocation)")
         locationManager.startUpdatingLocation()
-        Alamofire.request("http://10.20.8.124/speaceapp/API/get_type_info.php", parameters: ["access_key": "1qaz2wsx"])
-            .responseJSON { response in
-                print(response.request as Any)  // original URL request
-                print(response.response as Any) // URL response
-                print(response.result.value as Any)   // result of response serialization
-                
-                var alert = UIAlertController(title: "message", message: "\(response.request)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-                
-                self.present(alert, animated: true, completion: nil)
-
-        }
+        myCamera()
     }
     
-    func settingButtonAction(sender: UIButton!) {
-        //  custom to present to other view
-//          let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
-//          present(vc!, animated: true, completion: nil)
- 
-        performSegue(withIdentifier: "showSetting", sender: self)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showSetting" {
-            if let filterView = segue.destination as? FilterViewController{
-                filterView.myLocation = self.mylocation
-            }else if let filterView = segue.destination as? ViewController{
-                print("This is View Controller")
-            }else{
-                let test = FilterViewController()
-                print(segue.destination)
-            }
-        }
+    func myCamera() {
+        let camera = GMSCameraPosition.camera(withLatitude: (mylocation!.coordinate.latitude), longitude: (mylocation!.coordinate.longitude), zoom: 17.0)
+        self.mapView?.animate(to: camera)
     }
 }
 

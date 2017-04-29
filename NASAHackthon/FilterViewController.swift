@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 import CoreLocation
 
 class FilterViewController: UIViewController {
@@ -67,6 +66,7 @@ class FilterViewController: UIViewController {
     }
     
     func okAction() {
-        
+        url_get()
+        self.dismiss(animated: true, completion: {});
     }
 }
