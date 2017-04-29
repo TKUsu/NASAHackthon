@@ -14,6 +14,8 @@ func url_get(location: CLLocation, type: String){
     var json: String?
     let url: String = "http://10.20.12.246/speaceapp/API/get_local_info.php"
     var parameters: Parameters?
+    var data: Dictionary<String, Any>?
+    
     if type == "0" {
         parameters = ["access_key": "1qaz2wsx",
                       "lat": location.coordinate.latitude,
@@ -32,8 +34,44 @@ func url_get(location: CLLocation, type: String){
             print(response.result.value as Any)   // result of response serialization
             if let JSON = response.result.value {
                 print("JSON: \(JSON)")
+                data = JSON as! Dictionary
+                print("\(data?.count)")
+                
+                // make sure we got JSON and it's an array of dictionaries
+                guard let json = response.result.value as? [[String: AnyObject]] else {
+                    print("didn't get todo objects as JSON from API")
+                    return
+                }
+                
+                // turn each item in JSON in to Todo object
+                var todos:[Todo] = []
+                for element in json {
+                    if let todoResult = Todo(json: element) {
+                        todos.append(todoResult)
+                    }
+                }
             }
-    }
+        }
+//        .responseString { response in
+//            print("Success: \(response.result.isSuccess)")
+//            print("Response String: \(response.result.value)")
+//        }
+//        .responseData { response in
+//            debugPrint("All Response Info: \(response)")
+//            
+//            if let data = response.result.value, let utf8Text = String(data: data, encoding: .utf8) {
+//                print("Data: \(utf8Text)")
+//            }
+//        }
+//        .response { response in
+//            print("Request: \(response.request)")
+//            print("Response: \(response.response)")
+//            print("Error: \(response.error)")
+//            
+//            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+//                print("Data: \(utf8Text)")
+//            }
+//        }
 }
 
 func url_get(data_id: String){
