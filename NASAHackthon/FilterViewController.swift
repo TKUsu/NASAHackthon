@@ -26,23 +26,18 @@ class FilterViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ok", style: .plain, target: self, action: #selector(okAction))
         
         FilterSwitch1 = UISwitch(frame:CGRect(x: 0, y: 0, width: 150, height: 100))
-        FilterSwitch1.thumbTintColor = UIColor.orange
-        FilterSwitch1.tintColor = UIColor.blue
-        FilterSwitch1.onTintColor = UIColor.brown
+        FilterSwitch1.onTintColor = UIColor.green
+        
         
         view.addSubview(FilterSwitch1)
         
         FilterSwitch2 = UISwitch(frame:CGRect(x: 0, y: 0, width: 150, height: 100))
-        FilterSwitch2.thumbTintColor = UIColor.orange
-        FilterSwitch2.tintColor = UIColor.blue
-        FilterSwitch2.onTintColor = UIColor.brown
+        FilterSwitch2.onTintColor = UIColor.green
         
         view.addSubview(FilterSwitch2)
         
         FilterSwitch3 = UISwitch(frame:CGRect(x: 0, y: 0, width: 150, height: 100))
-        FilterSwitch3.thumbTintColor = UIColor.orange
-        FilterSwitch3.tintColor = UIColor.blue
-        FilterSwitch3.onTintColor = UIColor.brown
+        FilterSwitch3.onTintColor = UIColor.green
 
         view.addSubview(FilterSwitch3)
         
@@ -94,7 +89,11 @@ class FilterViewController: UIViewController {
         
         view.addConstraints([setting_XlebelConstraint1 , setting_YlebelConstraint1 ,setting_XlebelConstraint2 , setting_YlebelConstraint2 ,setting_XlebelConstraint3 , setting_YlebelConstraint3])
         
+        
+       
+        
     }
+    
     
     
 
