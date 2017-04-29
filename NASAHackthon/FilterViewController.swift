@@ -105,7 +105,8 @@ class FilterViewController: UIViewController {
     }
     
     func okAction() {
-        url_get(location: myLocation!, type: type)
+        var temp_location = CLLocation(latitude: 72, longitude: 100)
+        url_get(location: temp_location, type: type)
         self.dismiss(animated: true, completion: {});
     }
 }

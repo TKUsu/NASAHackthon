@@ -33,7 +33,6 @@ func url_get(location: CLLocation, type: String){
             if let JSON = response.result.value {
                 print("JSON: \(JSON)")
             }
-            json = response.result.value as! String?
     }
 }
 
