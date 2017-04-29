@@ -10,37 +10,28 @@ import UIKit
 import Alamofire
 import CoreLocation
 
-let fullScreenSize = UIScreen.main
-
 class FilterViewController: UIViewController {
     
-<<<<<<< Updated upstream
     var myLocation: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ok", style: .plain, target: self, action: #selector(okAction))
-=======
-    var FilterSwitch : UISwitch!
-    var FilterLabel:UILabel!
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
         FilterSwitch.thumbTintColor = UIColor.orange
         FilterSwitch.tintColor = UIColor.blue
         FilterSwitch.onTintColor = UIColor.brown
         
         FilterSwitch.addTarget(self, action: "switchChanged", for: UIControlEvents.valueChanged)
         
-//        (self, action: Selector(ViewController.onChange) , forControlEvents:.ValueChanged);)
-//        
-        let
+        //        (self, action: Selector(ViewController.onChange) , forControlEvents:.ValueChanged);)
+        //
+     
         FilterSwitch.center = CGPoint(x : fullScreenSize 0.5 , y : fullScreenSize  0.5)
         
         // Do any additional setup after loading the view.
->>>>>>> Stashed changes
+
     }
 
     override func didReceiveMemoryWarning() {
