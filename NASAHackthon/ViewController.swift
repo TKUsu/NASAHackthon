@@ -7,25 +7,31 @@
 //
 
 import UIKit
+import CoreLocation
 import GoogleMaps
 
-class ViewController: UIViewController, GMSMapViewDelegate {
+
+
+class ViewController: UIViewController,CLLocationManagerDelegate  {
     
     var mylocation: CLLocation?
     var locationButton: UIButton!
     var settingButton: UIButton!
     
+    var mapView: GMSMapView!
+    
+    var locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        var view_height = view.frame.height, view_width = view.frame.width
-        print("X: \(view_height) y: \(view_width)")
+        self.locationManager.delegate = self
+        locationManager.startUpdatingLocation()
         
-        locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
         locationButton.backgroundColor = UIColor.green
         locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         
-        settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 505, height: 50))
+        settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
         settingButton.backgroundColor = UIColor.red
         settingButton.addTarget(self, action: #selector(settingButtonAction), for: .touchUpInside)
         
@@ -37,14 +43,14 @@ class ViewController: UIViewController, GMSMapViewDelegate {
                                                        toItem: view, attribute: .trailingMargin, multiplier: 1.0, constant: 0.0)
         
         let setting_verConstraint = NSLayoutConstraint(item: settingButton!, attribute: .bottom, relatedBy: .equal,
-                                                       toItem: locationButton, attribute: .top, multiplier: 1.0, constant: -10.0)
+                                                       toItem: view, attribute: .bottom, multiplier: 1.0, constant: -20.0)
         
         self.locationButton.translatesAutoresizingMaskIntoConstraints = false
         let location_horConstraint = NSLayoutConstraint(item: locationButton!, attribute: .trailing, relatedBy: .equal,
                                                toItem: view, attribute: .trailingMargin, multiplier: 1.0, constant: 0.0)
         
         let location_verConstraint = NSLayoutConstraint(item: locationButton!, attribute: .bottom, relatedBy: .equal,
-                                               toItem: view, attribute: .bottom, multiplier: 1.0, constant: -20.0)
+                                               toItem: settingButton, attribute: .top, multiplier: 1.0, constant: -10.0)
         
         view.addConstraints([setting_horConstraint, setting_verConstraint, location_horConstraint, location_verConstraint])
         }
@@ -54,31 +60,49 @@ class ViewController: UIViewController, GMSMapViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        mylocation = locations.last
+        
+        let camera = GMSCameraPosition.camera(withLatitude: (mylocation!.coordinate.latitude), longitude: (mylocation!.coordinate.longitude), zoom: 17.0)
+        
+        self.mapView?.animate(to: camera)
+        
+        //Finally stop updating location otherwise it will come again and again in this delegate
+        self.locationManager.stopUpdatingLocation()
+
+    }
+    
     override func loadView() {
         // Create a GMSCameraPosition that tells the map to display the
         // coordinate -33.86,151.20 at zoom level 6.
         let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-        let mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        mapView.isMyLocationEnabled = false
-        mapView.delegate = self
-        self.mylocation = mapView.myLocation
+        let map = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        map.isMyLocationEnabled = true
+
+        self.mylocation = map.myLocation
+        self.mapView = map
         
-        view = mapView
+        view = map
         
         // Creates a marker in the center of the map.
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapView
+//        let marker = GMSMarker()
+//        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+//        marker.title = "Sydney"
+//        marker.snippet = "Australia"
+//        marker.map = mapView
     }
     
     func locationButtonAction(sender: UIButton!){
+        guard mylocation == nil else {
+            return
+        }
         print("My Location: \(mylocation)")
     }
     
     func settingButtonAction(sender: UIButton!) {
-        let vcTarget: UIViewController!
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
+
+        present(vc!, animated: true, completion: nil)
     }
 
 }
