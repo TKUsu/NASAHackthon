@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		51588451C14EB4E006D6A35C /* Pods_NASAHackthon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABA28BC468ED4EDF6D383CAE /* Pods_NASAHackthon.framework */; };
+		84AF33061EB475E80033F064 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AF33051EB475E80033F064 /* FilterViewController.swift */; };
 		D35F1C6E1EB4476500B75BFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F1C6D1EB4476500B75BFD /* AppDelegate.swift */; };
 		D35F1C701EB4476500B75BFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F1C6F1EB4476500B75BFD /* ViewController.swift */; };
 		D35F1C731EB4476500B75BFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D35F1C711EB4476500B75BFD /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84AF33051EB475E80033F064 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		A55A86EC430910C15DE21C06 /* Pods-NASAHackthon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NASAHackthon.release.xcconfig"; path = "Pods/Target Support Files/Pods-NASAHackthon/Pods-NASAHackthon.release.xcconfig"; sourceTree = "<group>"; };
 		ABA28BC468ED4EDF6D383CAE /* Pods_NASAHackthon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NASAHackthon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCCB95F04CF4614386F96E10 /* Pods-NASAHackthon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NASAHackthon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NASAHackthon/Pods-NASAHackthon.debug.xcconfig"; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			children = (
 				D35F1C6D1EB4476500B75BFD /* AppDelegate.swift */,
 				D35F1C6F1EB4476500B75BFD /* ViewController.swift */,
+				84AF33051EB475E80033F064 /* FilterViewController.swift */,
 				D35F1C711EB4476500B75BFD /* Main.storyboard */,
 				D35F1C741EB4476500B75BFD /* Assets.xcassets */,
 				D35F1C761EB4476500B75BFD /* LaunchScreen.storyboard */,
@@ -211,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84AF33061EB475E80033F064 /* FilterViewController.swift in Sources */,
 				D35F1C701EB4476500B75BFD /* ViewController.swift in Sources */,
 				D35F1C6E1EB4476500B75BFD /* AppDelegate.swift in Sources */,
 			);
