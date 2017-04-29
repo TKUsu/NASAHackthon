@@ -99,32 +99,19 @@ class ViewController: UIViewController,CLLocationManagerDelegate  {
     }
     
     func locationButtonAction(sender: UIButton!){
-        guard mylocation == nil else {
-            return
-        }
         print("My Location: \(mylocation)")
         locationManager.startUpdatingLocation()
-//        Alamofire.request("http://10.20.8.124/speaceapp/API/get_type_info.php", parameters: ["access_key": "1qaz2wsx"])
-//            .responseJSON { response in
-//                print(response.request as Any)  // original URL request
-//                print(response.response as Any) // URL response
-//                print(response.result.value as Any)   // result of response serialization
-//        }
-        var alert = UIAlertController(title: "message", message: "this is first button", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
-        Alamofire.request("https://httpbin.org/get", parameters: ["foo": "bar"])
+        Alamofire.request("http://10.20.8.124/speaceapp/API/get_type_info.php", parameters: ["access_key": "1qaz2wsx"])
             .responseJSON { response in
+                print(response.request as Any)  // original URL request
+                print(response.response as Any) // URL response
+                print(response.result.value as Any)   // result of response serialization
                 
-                print(response.request)  // 请求对象
-                print(response.response) // 响应对象
-                print(response.data)     // 服务端返回的数据
+                var alert = UIAlertController(title: "message", message: "\(response.request)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
                 
-                if let JSON = response.result.value {
-                    print("JSON: \(JSON)")
-                }
-                
+                self.present(alert, animated: true, completion: nil)
+
         }
     }
     
