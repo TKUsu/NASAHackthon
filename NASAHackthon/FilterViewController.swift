@@ -17,15 +17,7 @@ class FilterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(myLocation)
-        
-        Alamofire.request("http://10.20.8.124/speaceapp/API/get_type_info.php", parameters: ["access_key": "1qaz2wsx"])
-            .response { request, response, data, error in
-                print(request)
-                print(response)
-                print(error)
-        }
-        // Do any additional setup after loading the view.
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ok", style: .plain, target: self, action: #selector(okAction))
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,6 +25,9 @@ class FilterViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func okAction() {
+        
+    }
 
     @IBAction func Selete1(_ sender: UISwitch) {
     }

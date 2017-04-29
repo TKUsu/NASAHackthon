@@ -9,8 +9,7 @@
 import UIKit
 import CoreLocation
 import GoogleMaps
-
-
+import Alamofire
 
 class ViewController: UIViewController,CLLocationManagerDelegate  {
     
@@ -104,13 +103,36 @@ class ViewController: UIViewController,CLLocationManagerDelegate  {
             return
         }
         print("My Location: \(mylocation)")
+        locationManager.startUpdatingLocation()
+//        Alamofire.request("http://10.20.8.124/speaceapp/API/get_type_info.php", parameters: ["access_key": "1qaz2wsx"])
+//            .responseJSON { response in
+//                print(response.request as Any)  // original URL request
+//                print(response.response as Any) // URL response
+//                print(response.result.value as Any)   // result of response serialization
+//        }
+        var alert = UIAlertController(title: "message", message: "this is first button", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        Alamofire.request("https://httpbin.org/get", parameters: ["foo": "bar"])
+            .responseJSON { response in
+                
+                print(response.request)  // 请求对象
+                print(response.response) // 响应对象
+                print(response.data)     // 服务端返回的数据
+                
+                if let JSON = response.result.value {
+                    print("JSON: \(JSON)")
+                }
+                
+        }
     }
     
     func settingButtonAction(sender: UIButton!) {
-        /*  custom to present to other view
-          let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
-          present(vc!, animated: true, completion: nil)
-        */
+        //  custom to present to other view
+//          let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
+//          present(vc!, animated: true, completion: nil)
+ 
         performSegue(withIdentifier: "showSetting", sender: self)
     }
     
@@ -118,6 +140,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate  {
         if segue.identifier == "showSetting" {
             if let filterView = segue.destination as? FilterViewController{
                 filterView.myLocation = self.mylocation
+            }else if let filterView = segue.destination as? ViewController{
+                print("This is View Controller")
             }else{
                 let test = FilterViewController()
                 print(segue.destination)
