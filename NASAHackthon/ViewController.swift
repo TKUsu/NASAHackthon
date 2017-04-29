@@ -11,9 +11,9 @@ import GoogleMaps
 
 class ViewController: UIViewController, GMSMapViewDelegate {
     
-    @IBOutlet weak var myMapView: GMSMapView!
     var mylocation: CLLocation?
     var locationButton: UIButton!
+    var settingButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,26 +21,33 @@ class ViewController: UIViewController, GMSMapViewDelegate {
         var view_height = view.frame.height, view_width = view.frame.width
         print("X: \(view_height) y: \(view_width)")
         
-        locationButton = UIButton(type: .infoDark)
+        locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         locationButton.backgroundColor = UIColor.green
+        locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
+        
+        settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 505, height: 50))
+        settingButton.backgroundColor = UIColor.red
+        settingButton.addTarget(self, action: #selector(settingButtonAction), for: .touchUpInside)
         
         self.view.addSubview(locationButton)
+        self.view.addSubview(settingButton)
         
-        let horConstraint = NSLayoutConstraint(item: locationButton!, attribute: .centerX, relatedBy: .equal,
-                                               toItem: view, attribute: .centerX,
-                                               multiplier: 1.0, constant: 0.0)
-        let verConstraint = NSLayoutConstraint(item: locationButton!, attribute: .centerY, relatedBy: .equal,
-                                               toItem: view, attribute: .centerY,
-                                               multiplier: 1.0, constant: 0.0)
-        let widConstraint = NSLayoutConstraint(item: locationButton!, attribute: .width, relatedBy: .equal,
-                                               toItem: view, attribute: .width,
-                                               multiplier: 0.95, constant: 0.0)
-        let heiConstraint = NSLayoutConstraint(item: locationButton!, attribute: .height, relatedBy: .equal,
-                                               toItem: view, attribute: .height,
-                                               multiplier: 0.95, constant: 0.0)
+        self.settingButton.translatesAutoresizingMaskIntoConstraints = false
+        let setting_horConstraint = NSLayoutConstraint(item: settingButton!, attribute: .trailing, relatedBy: .equal,
+                                                       toItem: view, attribute: .trailingMargin, multiplier: 1.0, constant: 0.0)
         
-        view.addConstraints([horConstraint, verConstraint, widConstraint, heiConstraint])
-    }
+        let setting_verConstraint = NSLayoutConstraint(item: settingButton!, attribute: .bottom, relatedBy: .equal,
+                                                       toItem: locationButton, attribute: .top, multiplier: 1.0, constant: -10.0)
+        
+        self.locationButton.translatesAutoresizingMaskIntoConstraints = false
+        let location_horConstraint = NSLayoutConstraint(item: locationButton!, attribute: .trailing, relatedBy: .equal,
+                                               toItem: view, attribute: .trailingMargin, multiplier: 1.0, constant: 0.0)
+        
+        let location_verConstraint = NSLayoutConstraint(item: locationButton!, attribute: .bottom, relatedBy: .equal,
+                                               toItem: view, attribute: .bottom, multiplier: 1.0, constant: -20.0)
+        
+        view.addConstraints([setting_horConstraint, setting_verConstraint, location_horConstraint, location_verConstraint])
+        }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -64,6 +71,14 @@ class ViewController: UIViewController, GMSMapViewDelegate {
         marker.title = "Sydney"
         marker.snippet = "Australia"
         marker.map = mapView
+    }
+    
+    func locationButtonAction(sender: UIButton!){
+        print("My Location: \(mylocation)")
+    }
+    
+    func settingButtonAction(sender: UIButton!) {
+        let vcTarget: UIViewController!
     }
 
 }
