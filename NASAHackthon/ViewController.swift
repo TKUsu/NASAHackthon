@@ -24,6 +24,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         self.locationManager.delegate = self
         locationManager.startUpdatingLocation()
         
@@ -53,11 +55,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate  {
                                                toItem: settingButton, attribute: .top, multiplier: 1.0, constant: -10.0)
         
         view.addConstraints([setting_horConstraint, setting_verConstraint, location_horConstraint, location_verConstraint])
-        }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // Show the navigation bar on other view controllers
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -100,10 +107,22 @@ class ViewController: UIViewController,CLLocationManagerDelegate  {
     }
     
     func settingButtonAction(sender: UIButton!) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
-
-        present(vc!, animated: true, completion: nil)
+        /*  custom to present to other view
+          let vc = self.storyboard?.instantiateViewController(withIdentifier: "FilterViewController")
+          present(vc!, animated: true, completion: nil)
+        */
+        performSegue(withIdentifier: "showSetting", sender: self)
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showSetting" {
+            if let filterView = segue.destination as? FilterViewController{
+                filterView.myLocation = self.mylocation
+            }else{
+                let test = FilterViewController()
+                print(segue.destination)
+            }
+        }
+    }
 }
 

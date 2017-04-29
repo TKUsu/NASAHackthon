@@ -7,12 +7,24 @@
 //
 
 import UIKit
+import Alamofire
+import CoreLocation
 
 class FilterViewController: UIViewController {
-
+    
+    var myLocation: CLLocation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        print(myLocation)
+        
+        Alamofire.request("http://10.20.8.124/speaceapp/API/get_type_info.php", parameters: ["access_key": "1qaz2wsx"])
+            .response { request, response, data, error in
+                print(request)
+                print(response)
+                print(error)
+        }
         // Do any additional setup after loading the view.
     }
 
