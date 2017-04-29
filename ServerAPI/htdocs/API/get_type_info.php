@@ -3,7 +3,7 @@ include_once "../config.php"; // log.php
 
 $access_key = isset($_GET["access_key"]) ? $_GET["access_key"] : "null"; //
 
-if($access_key==ACCESS_KEY_1||$access_key==ACCESS_KEY_2){ // write value
+if($access_key==ACCESS_KEY_READ_ONLY||$access_key==ACCESS_KEY_READ_WRITE){ // write value
 	
 	$sql = "SELECT * FROM `".T_TYPE."` ORDER BY `".T_TYPE."`.`".C_TYPE_ID."` DESC";
 	//echo $sql."<br>";
