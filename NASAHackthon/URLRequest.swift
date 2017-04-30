@@ -33,23 +33,23 @@ func url_get(location: CLLocation, type: String){
             print(response.response as Any) // URL response
             print(response.result.value as Any)   // result of response serialization
             if let JSON = response.result.value {
-                print("JSON: \(JSON)")
-                data = JSON as! Dictionary
-                print("\(data?.count)")
-                
-                // make sure we got JSON and it's an array of dictionaries
-                guard let json = response.result.value as? [[String: AnyObject]] else {
-                    print("didn't get todo objects as JSON from API")
-                    return
-                }
-                
-                // turn each item in JSON in to Todo object
-                var todos:[Todo] = []
-                for element in json {
-                    if let todoResult = Todo(json: element) {
-                        todos.append(todoResult)
-                    }
-                }
+//                print("JSON: \(JSON)")
+//                data = JSON as! Dictionary
+//                print("\(data?.count)")
+//                
+//                // make sure we got JSON and it's an array of dictionaries
+//                guard let json = response.result.value as? [[String: AnyObject]] else {
+//                    print("didn't get todo objects as JSON from API")
+//                    return
+//                }
+//                
+//                // turn each item in JSON in to Todo object
+//                var todos:[Todo] = []
+//                for element in json {
+//                    if let todoResult = Todo(json: element) {
+//                        todos.append(todoResult)
+//                    }
+//                }
             }
         }
 //        .responseString { response in
