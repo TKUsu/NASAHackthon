@@ -9,7 +9,7 @@ $shortcut_img_base64 = isset($_GET["base64"]) ? $_GET["base64"] : "NULL";
 $title = isset($_GET["title"]) ? $_GET["title"] : "NULL";
 $description = isset($_GET["description"]) ? $_GET["description"] : "NULL";
 $memo = isset($_GET["memo"]) ? $_GET["memo"] : "{}";// 空 json
-$points = isset($_GET["points"]) ? $_GET["points"] : "0,0";// 0,0+20.0,100+
+$points = isset($_GET["points"]) ? $_GET["points"] : "NULL";// 0,0+20.0,100+
 
 if($access_key==ACCESS_KEY_READ_WRITE){ // write value
 
@@ -31,27 +31,37 @@ if($access_key==ACCESS_KEY_READ_WRITE){ // write value
 
 	$sql_insert_Data = "INSERT INTO `".T_INFO."` (`type_id`, `tag`, `img_url`, `shortcut_img_base64`, `title`, `description`, `memo`) VALUES( ".
 		$type_id.",'".$tag."','".$img_url."','".$shortcut_img_base64."','".$title."','".$description."','".$memo."')";
-	// echo $sql_insert_Data;
+	// echo $sql_insert_Data."<br><br>";
 	$connection = mysqli_connect(DB_SERVERIP, DB_USERNAME, DB_PASSWORD,DB_DATABASE ) or die(ERROR_CHARACTER);
 	mysqli_query($connection, $sql_insert_Data); // UTF8
 	$data_id = mysqli_insert_id($connection);
-	echo "data_id = ".$data_id;
+	//echo "data_id = ".$data_id;
 
 	// insert "location" table
-	if($points=="0,0"||$points==""){
+	if($points=="NULL"||$points==""){
 		echo "\"points\" not corrent . Should be ( lat,long|lat,long|... )";
 		exit();
 	} 
+	//$type  = "1,3";
+	$pointArray = explode("|", $points);
+	$pointLength = count($pointArray);
 	
 
+	$sql_insert_Location = "INSERT INTO `".T_LOCATION."` (`type_id`, `data_id`, `latitude`, `longitude`, `altitude`, `area_code`, `multi_zone`,`shortcut_img_base64`) VALUES ";
 	
+	$valueSet ="";
 
-// 	INSERT INTO `info_location` ( `type_id`, `data_id`, `latitude`, `longitude`, `altitude`, `area_code`, `multi_zone`,`shortcut_img_base64`) VALUES
-// ( 1, 1, 72.0276249, 100.430462, 0, '', '',NULL),
-// ( 1, 1, 76.8914998, -162.17566, 0, '', '',NULL),
-// ( 1, 1, 72.2614842, -43.4729121, 0, '', '',NULL);
+	//echo "pointLength = ".$pointLength;
+	for($i =0;$i<(int)$pointLength;$i++){
+  		if((int)$i == ((int)$pointLength-1 ))  $valueSet = $valueSet . "( ".$type_id.", ".$data_id.", ".$pointArray[$i].", 0, '', '',".$shortcut_img_base64.");" ; 
+  		else $valueSet = $valueSet . "( ".$type_id.", ".$data_id.", ".$pointArray[$i].", 0, '', '',".$shortcut_img_base64."),"; 
+  	}	
+	$sql_insert_Location = $sql_insert_Location.$valueSet;
+	// echo $sql_insert_Location."<br><br>";
 
-
+	$connection = mysqli_connect(DB_SERVERIP, DB_USERNAME, DB_PASSWORD,DB_DATABASE ) or die(ERROR_CHARACTER);
+	mysqli_query($connection, $sql_insert_Location); // UTF8
+	echo "success";
 
 }else{ // error
 	echo ACCESS_DENY;

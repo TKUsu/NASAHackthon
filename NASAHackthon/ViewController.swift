@@ -13,6 +13,8 @@ import Alamofire
 
 class ViewController: UIViewController  {
     
+    var result = Dictionary<String, Any>()
+    
     var locationButton: UIButton!
     var settingButton: UIButton!
     
@@ -27,11 +29,11 @@ class ViewController: UIViewController  {
         startLocaitonManager()
         
         locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-        locationButton.backgroundColor = UIColor.green
+        locationButton.backgroundColor = UIColor(patternImage: UIImage(cgImage: #imageLiteral(resourceName: "location") as! CGImage))
         locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         
         settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-        settingButton.backgroundColor = UIColor.red
+        settingButton.backgroundColor = UIColor(patternImage: UIImage(cgImage: #imageLiteral(resourceName: "setting") as! CGImage))
         settingButton.addTarget(self, action: #selector(settingButtonAction), for: .touchUpInside)
         
         self.view.addSubview(locationButton)
@@ -127,6 +129,11 @@ extension ViewController: CLLocationManagerDelegate{
         print("My Location: \(mylocation)")
         locationManager.startUpdatingLocation()
         myCamera()
+        
+        var alert = UIAlertController(title: "Request data", message: "\(result)", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        print("\(result)")
     }
     
     func myCamera() {
