@@ -29,11 +29,11 @@ class ViewController: UIViewController  {
         startLocaitonManager()
         
         locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-        locationButton.setBackgroundImage(UIImage(#imageLiteral(resourceName: "locationImg")), for: .normal)
+        locationButton.backgroundColor = UIColor.green
         locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         
         settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-        settingButton.setBackgroundImage(UIImage(#imageLiteral(resourceName: "settingImg")), for: .normal)
+        settingButton.backgroundColor = UIColor.red
         settingButton.addTarget(self, action: #selector(settingButtonAction), for: .touchUpInside)
         
         self.view.addSubview(locationButton)
@@ -112,7 +112,7 @@ extension ViewController: CLLocationManagerDelegate{
         // Creates a marker in the center of the map.
         for i in 0 ..< result.count {
             let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2D(result.in, longitude: 151.20)
+            marker.position = CLLocationCoordinate2D(latitude: 70, longitude: 151.20)
             marker.title = "Sydney"
             marker.snippet = "Australia"
             marker.map = mapView

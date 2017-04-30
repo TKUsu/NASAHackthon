@@ -12,7 +12,7 @@ import CoreLocation
 
 func url_get(location: CLLocation, type: String, callback: @escaping ((_ Result: Dictionary<String, Any>) -> Void)){
     var json: String?
-    let url: String = "http://10.20.12.246/speaceapp/API/get_local_info.php"
+    let url: String = "http://10.20.8.124/speaceapp/API/get_local_info.php"
     var parameters: Parameters?
     
     if type == "0" {
@@ -25,7 +25,6 @@ func url_get(location: CLLocation, type: String, callback: @escaping ((_ Result:
                       "long": location.coordinate.longitude,
                       "type": type]
     }
-    [[{},{}]]
     Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default)
         .responseJSON { response in
             /* .response
@@ -36,7 +35,7 @@ func url_get(location: CLLocation, type: String, callback: @escaping ((_ Result:
             */
             var result = Dictionary<String, Any>()
             if let result_data = response.result.value {
-//                print("Result data: \(result_data)")
+                print("Result data: \(result_data)")
 //                print(response)
                 //to get status code
                 if let status = response.response?.statusCode {
@@ -48,17 +47,25 @@ func url_get(location: CLLocation, type: String, callback: @escaping ((_ Result:
                     }
                 }
                 //to get JSON return value
-                if let result_array = result_data as? [[String: Any]] {
-                    let result_KeyValue = result_array.flatMap{$0}
-//                    print("Get result \(result_KeyValue) end index: \(result_KeyValue.endIndex)")
-                    
-                    for i in 0 ..< result_KeyValue.endIndex{
-                        result.updateValue(result_KeyValue[i].value, forKey: result_KeyValue[i].key)
-                        print("result add \(result_KeyValue[i].key): \(result_KeyValue[i].value)")
-                    }
-                    callback(result)
-                    print("insert \(result)")
-                }
+                let result_json = result_data as? [[String: Any]]
+                result = (result_json?[0])! as! Dictionary
+//                result = temp[0] as! Dictionary<String, Any>
+                print("=================================\(result.index(forKey: "local_id"))")
+//
+//                if let result_json = result_data as? [[String: Any]] {
+//                    print("\(result_json)")
+//                    for j in 0 ..< result_array.count{
+//                        let result_array =
+//                        let result_KeyValue = result_array[j].flatMap{$0}
+////                      print("Get result \(result_KeyValue) end index: \(result_KeyValue.endIndex)")
+//                    
+//                        for i in 0 ..< result_KeyValue.endIndex{
+//                            result.updateValue(result_KeyValue[i].value, forKey: result_KeyValue[i].key)
+//                            print("result add \(result_KeyValue[i].key): \(result_KeyValue[i].value)")
+//                        }
+//                        callback(result)
+//                    }
+//                }
             }
         }
     /*  Alamofire url get other response function
@@ -87,7 +94,7 @@ func url_get(location: CLLocation, type: String, callback: @escaping ((_ Result:
 
 func url_get(data_id: String){
     var json: String?
-    let url: String = "http://10.20.12.246/speaceapp/API/"
+    let url: String = "http://10.20.8.124/speaceapp/API/"
     let parameters: Parameters = ["access_key": "1qaz2wsx",
                                   "data_id": data_id]
     

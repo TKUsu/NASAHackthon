@@ -12,7 +12,7 @@ import CoreLocation
 class FilterViewController: UIViewController {
     
     var myLocation: CLLocation?
-    var type: String! = "0"
+    var type: String! = "all"
     var result = Dictionary<String, Any>()
     
     var FilterSwitch1 : UISwitch!
