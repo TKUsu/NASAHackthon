@@ -115,30 +115,7 @@ class FilterViewController: UIViewController {
         view.addConstraints([setting_XlebelConstraint1 , setting_YlebelConstraint1 ,setting_XlebelConstraint2 , setting_YlebelConstraint2 ,setting_XlebelConstraint3 , setting_YlebelConstraint3 , setting_XlebelConstraint4 ,
             setting_YlebelConstraint4])
         
-     
-        switch AllSwitch.isSelected {
-        case true:
-            
-            switch AllSwitch.isEnabled {
-            case FilterSwitch1.isEnabled:
-                OnClickSelect.insert(1)
-                return (okAction(url_get(data_id: type)))
-            case FilterSwitch2.isEnabled:
-                OnClickSelect.insert(2)
-                return (okAction(url_get(data_id: type)))
-            case FilterSwitch3.isEnabled:
-                OnClickSelect.insert(3)
-                return (okAction(url_get(data_id: type)))
-                
-            default : break;
-            }
-        case false:
-            OnClickSelect.insert(4)
-            return (okAction(url_get(data_id: type)))
-        default : break ;
         }
-        
-           }
     
     
 
@@ -150,9 +127,9 @@ class FilterViewController: UIViewController {
     
     //Return segue: getsetting
     func okAction() {
-        
         var temp_location = CLLocation(latitude: 72, longitude: 100)
 
+        type = checkType()
         url_get(location: temp_location, type: type){
             (result) in
             self.result = result
@@ -172,6 +149,35 @@ class FilterViewController: UIViewController {
                 print(segue.destination)
             }
         }
+    }
+    
+    func checkType() -> String {
+        var types: String!
+        
+        switch AllSwitch.isSelected {
+        case  false :
+            
+            switch AllSwitch.isSelected {
+                
+           
+                case  true:
+                    //FilterSwitch1.isEnabled
+                    OnClickSelect.insert(1)
+            
+                            
+                
+            default:
+                break;
+            }
+        case true:
+                    OnClickSelect.remove(4)
+            
+                break;
+
+        }
+
+        
+        return types
     }
 
 }
