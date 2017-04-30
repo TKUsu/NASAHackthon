@@ -13,6 +13,8 @@ import Alamofire
 
 class ViewController: UIViewController  {
     
+    var result = Dictionary<String, Any>()
+    
     var locationButton: UIButton!
     var settingButton: UIButton!
     
@@ -127,6 +129,11 @@ extension ViewController: CLLocationManagerDelegate{
         print("My Location: \(mylocation)")
         locationManager.startUpdatingLocation()
         myCamera()
+        
+        var alert = UIAlertController(title: "Request data", message: "\(result)", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        print("\(result)")
     }
     
     func myCamera() {

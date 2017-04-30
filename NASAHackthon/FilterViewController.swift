@@ -12,7 +12,8 @@ import CoreLocation
 class FilterViewController: UIViewController {
     
     var myLocation: CLLocation?
-    var type: String! = "all"
+    var type: String! = "0"
+    var result = Dictionary<String, Any>()
     
     var FilterSwitch1 : UISwitch!
     var FilterSwitch2 : UISwitch!
@@ -97,16 +98,36 @@ class FilterViewController: UIViewController {
     }
     
     
-    
+    func urlCallback(callback: Dictionary<String, Any>) -> Dictionary<String, Any>{
+        return callback
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    //Return segue: getsetting
     func okAction() {
         var temp_location = CLLocation(latitude: 72, longitude: 100)
-        url_get(location: temp_location, type: type)
-        self.dismiss(animated: true, completion: {});
+        url_get(location: temp_location, type: type){
+            (result) in
+            self.result = result
+            print("OK: \(self.result)")
+        }
+        print("aaaa \(self.result)")
+        performSegue(withIdentifier: "getsetting", sender: self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "getsetting" {
+            if let vc = segue.destination as? ViewController{
+                vc.result = self.result
+                print("vc result: \(vc.result) fv result: \(self.result)")
+            }else{
+                print(segue.destination)
+            }
+        }
+    }
+
 }
