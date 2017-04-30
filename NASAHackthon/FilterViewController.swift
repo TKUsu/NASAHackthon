@@ -135,7 +135,7 @@ class FilterViewController: UIViewController {
         case false:
             OnClickSelect.insert(4)
             return (okAction(url_get(data_id: type)))
-        default : return ;
+        default : break ;
         }
         
            }

@@ -36,8 +36,7 @@ class ViewController: UIViewController  {
         
         settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         settingButton.setImage(#imageLiteral(resourceName: "setting"), for: .normal)
-        //settingButton.backgroundColor = UIColor(patternImage: UIImage(cgImage: #imageLiteral(resourceName: "setting") as! CGImage))
-        settingButton.addTarget(self, action: #selector(settingButtonAction), for: .touchUpInside)
+                settingButton.addTarget(self, action: #selector(settingButtonAction), for: .touchUpInside)
         
         self.view.addSubview(locationButton)
         self.view.addSubview(settingButton)
