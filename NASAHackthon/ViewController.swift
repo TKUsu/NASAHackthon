@@ -29,11 +29,11 @@ class ViewController: UIViewController  {
         startLocaitonManager()
         
         locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-        locationButton.backgroundColor = UIColor(patternImage: UIImage(cgImage: #imageLiteral(resourceName: "location") as! CGImage))
+        locationButton.setBackgroundImage(UIImage(#imageLiteral(resourceName: "locationImg")), for: .normal)
         locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         
         settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-        settingButton.backgroundColor = UIColor(patternImage: UIImage(cgImage: #imageLiteral(resourceName: "setting") as! CGImage))
+        settingButton.setBackgroundImage(UIImage(#imageLiteral(resourceName: "settingImg")), for: .normal)
         settingButton.addTarget(self, action: #selector(settingButtonAction), for: .touchUpInside)
         
         self.view.addSubview(locationButton)
@@ -52,7 +52,6 @@ class ViewController: UIViewController  {
         
         let location_verConstraint = NSLayoutConstraint(item: locationButton!, attribute: .bottom, relatedBy: .equal,
                                                toItem: settingButton, attribute: .top, multiplier: 1.0, constant: -10.0)
-        
         view.addConstraints([setting_horConstraint, setting_verConstraint, location_horConstraint, location_verConstraint])
     }
     
@@ -111,11 +110,13 @@ extension ViewController: CLLocationManagerDelegate{
         view = map
         
         // Creates a marker in the center of the map.
-        //        let marker = GMSMarker()
-        //        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
-        //        marker.title = "Sydney"
-        //        marker.snippet = "Australia"
-        //        marker.map = mapView
+        for i in 0 ..< result.count {
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(result.in, longitude: 151.20)
+            marker.title = "Sydney"
+            marker.snippet = "Australia"
+            marker.map = mapView
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

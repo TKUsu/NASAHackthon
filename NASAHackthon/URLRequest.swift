@@ -25,7 +25,7 @@ func url_get(location: CLLocation, type: String, callback: @escaping ((_ Result:
                       "long": location.coordinate.longitude,
                       "type": type]
     }
-    
+    [[{},{}]]
     Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default)
         .responseJSON { response in
             /* .response
