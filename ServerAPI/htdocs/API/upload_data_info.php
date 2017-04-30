@@ -31,7 +31,7 @@ if($access_key==ACCESS_KEY_READ_WRITE){ // write value
 
 	$sql_insert_Data = "INSERT INTO `".T_INFO."` (`type_id`, `tag`, `img_url`, `shortcut_img_base64`, `title`, `description`, `memo`) VALUES( ".
 		$type_id.",'".$tag."','".$img_url."','".$shortcut_img_base64."','".$title."','".$description."','".$memo."')";
-	echo $sql_insert_Data."<br><br>";
+	// echo $sql_insert_Data."<br><br>";
 	$connection = mysqli_connect(DB_SERVERIP, DB_USERNAME, DB_PASSWORD,DB_DATABASE ) or die(ERROR_CHARACTER);
 	mysqli_query($connection, $sql_insert_Data); // UTF8
 	$data_id = mysqli_insert_id($connection);
@@ -57,7 +57,7 @@ if($access_key==ACCESS_KEY_READ_WRITE){ // write value
   		else $valueSet = $valueSet . "( ".$type_id.", ".$data_id.", ".$pointArray[$i].", 0, '', '',".$shortcut_img_base64."),"; 
   	}	
 	$sql_insert_Location = $sql_insert_Location.$valueSet;
-	echo $sql_insert_Location."<br><br>";
+	// echo $sql_insert_Location."<br><br>";
 
 	$connection = mysqli_connect(DB_SERVERIP, DB_USERNAME, DB_PASSWORD,DB_DATABASE ) or die(ERROR_CHARACTER);
 	mysqli_query($connection, $sql_insert_Location); // UTF8

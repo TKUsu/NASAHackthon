@@ -18,19 +18,21 @@ class FilterViewController: UIViewController {
     var FilterSwitch1 : UISwitch!
     var FilterSwitch2 : UISwitch!
     var FilterSwitch3 : UISwitch!
+    var AllSwitch : UISwitch!
     var FilterLabel:UILabel!
     var FilterLebleText1 : UILabel!
     var FilterLebleText2 : UILabel!
     var FilterLebleText3 : UILabel!
+    var AllLabel :UILabel!
+    var OnClickSelect : Set<Int> = Set()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//跳頁
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ok", style: .plain, target: self, action: #selector(okAction))
-        
+//Switch Object
         FilterSwitch1 = UISwitch(frame:CGRect(x: 0, y: 0, width: 150, height: 100))
         FilterSwitch1.onTintColor = UIColor.green
-        
         
         view.addSubview(FilterSwitch1)
         
@@ -44,6 +46,12 @@ class FilterViewController: UIViewController {
 
         view.addSubview(FilterSwitch3)
         
+        AllSwitch = UISwitch(frame: CGRect(x: 0, y: 0, width: 150, height: 100))
+        AllSwitch.onTintColor = UIColor.green
+        
+        view.addSubview(AllSwitch)
+        
+//Switch Limit
         self.FilterSwitch1.translatesAutoresizingMaskIntoConstraints = false
         let setting_switchConstraint1 = NSLayoutConstraint(item: FilterSwitch1, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailingMargin, multiplier: 1.0, constant: 80.0)
         let setting_verConstraint1 = NSLayoutConstraint(item: FilterSwitch1, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 140.0)
@@ -56,10 +64,14 @@ class FilterViewController: UIViewController {
         let setting_switchConstraint3 = NSLayoutConstraint(item: FilterSwitch3, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailingMargin, multiplier: 1.0, constant: 80.0)
         let setting_verConstraint3 = NSLayoutConstraint(item: FilterSwitch3, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 280.0)
         
+        self.AllSwitch.translatesAutoresizingMaskIntoConstraints = false
+        let setting_switchConstraint4 = NSLayoutConstraint(item: AllSwitch, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailingMargin, multiplier: 1.0, constant: 80.0)
+        let setting_verConstraint4 = NSLayoutConstraint(item: AllSwitch, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 350.0)
         
-        view.addConstraints([setting_verConstraint1 , setting_switchConstraint1 , setting_verConstraint2 , setting_switchConstraint2 , setting_switchConstraint3 , setting_verConstraint3])
         
+        view.addConstraints([setting_verConstraint1 , setting_switchConstraint1 , setting_verConstraint2 , setting_switchConstraint2 , setting_switchConstraint3 , setting_verConstraint3 , setting_switchConstraint4 , setting_verConstraint4])
         
+//Label Object
         FilterLebleText1 = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 20))
         FilterLebleText1.text = "City";
         FilterLebleText1.tintColor = UIColor.black
@@ -76,7 +88,12 @@ class FilterViewController: UIViewController {
         FilterLebleText3.tintColor = UIColor.black
         view.addSubview(FilterLebleText3)
         
+        AllLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 150, height: 20))
+        AllLabel.text = "All";
+        AllLabel.tintColor = UIColor.black
+        view.addSubview(AllLabel)
         
+//Lable Limit
         self.FilterLebleText1.translatesAutoresizingMaskIntoConstraints = false
         let setting_XlebelConstraint1 = NSLayoutConstraint(item: FilterLebleText1, attribute: .height , relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 250.0)
         let setting_YlebelConstraint1 = NSLayoutConstraint(item: FilterLebleText1, attribute: .leading, relatedBy: .equal, toItem: FilterSwitch1, attribute: .trailing, multiplier: 1.0, constant: 10.0)
@@ -88,19 +105,43 @@ class FilterViewController: UIViewController {
         self.FilterLebleText3.translatesAutoresizingMaskIntoConstraints = false
         let setting_XlebelConstraint3 = NSLayoutConstraint(item: FilterLebleText3, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 530.0)
         let setting_YlebelConstraint3 = NSLayoutConstraint(item: FilterLebleText3, attribute: .leading, relatedBy: .equal, toItem: FilterSwitch3, attribute: .trailing, multiplier: 1.0, constant: 10.0)
+        
+        
+        self.AllLabel.translatesAutoresizingMaskIntoConstraints = false
+        let setting_XlebelConstraint4 = NSLayoutConstraint(item: AllLabel, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 670.0)
+        let setting_YlebelConstraint4 = NSLayoutConstraint(item: AllLabel, attribute: .leading, relatedBy: .equal, toItem: AllSwitch, attribute: .trailing, multiplier: 1.0, constant: 10.0)
 
         
-        view.addConstraints([setting_XlebelConstraint1 , setting_YlebelConstraint1 ,setting_XlebelConstraint2 , setting_YlebelConstraint2 ,setting_XlebelConstraint3 , setting_YlebelConstraint3])
+        view.addConstraints([setting_XlebelConstraint1 , setting_YlebelConstraint1 ,setting_XlebelConstraint2 , setting_YlebelConstraint2 ,setting_XlebelConstraint3 , setting_YlebelConstraint3 , setting_XlebelConstraint4 ,
+            setting_YlebelConstraint4])
         
+     
+        switch AllSwitch.isSelected {
+        case true:
+            
+            switch AllSwitch.isEnabled {
+            case FilterSwitch1.isEnabled:
+                OnClickSelect.insert(1)
+                return (okAction(url_get(data_id: type)))
+            case FilterSwitch2.isEnabled:
+                OnClickSelect.insert(2)
+                return (okAction(url_get(data_id: type)))
+            case FilterSwitch3.isEnabled:
+                OnClickSelect.insert(3)
+                return (okAction(url_get(data_id: type)))
+                
+            default : break;
+            }
+        case false:
+            OnClickSelect.insert(4)
+            return (okAction(url_get(data_id: type)))
+        default : return ;
+        }
         
-       
-        
-    }
+           }
     
     
-    func urlCallback(callback: Dictionary<String, Any>) -> Dictionary<String, Any>{
-        return callback
-    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -109,7 +150,9 @@ class FilterViewController: UIViewController {
     
     //Return segue: getsetting
     func okAction() {
+        
         var temp_location = CLLocation(latitude: 72, longitude: 100)
+
         url_get(location: temp_location, type: type){
             (result) in
             self.result = result
@@ -117,6 +160,7 @@ class FilterViewController: UIViewController {
         }
         print("aaaa \(self.result)")
         performSegue(withIdentifier: "getsetting", sender: self)
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

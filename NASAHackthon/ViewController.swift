@@ -14,7 +14,8 @@ import Alamofire
 class ViewController: UIViewController  {
     
     var result = Dictionary<String, Any>()
-    
+  //  UIColor(patternImage: UIImage(cgImage: #imageLiteral(resourceName: "location") as! CGImage))
+
     var locationButton: UIButton!
     var settingButton: UIButton!
     
@@ -28,12 +29,14 @@ class ViewController: UIViewController  {
         
         startLocaitonManager()
         
-        locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-        locationButton.backgroundColor = UIColor.green
+        locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        locationButton.setImage(#imageLiteral(resourceName: "location"), for: .normal)
+       
         locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         
-        settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 150))
-        settingButton.backgroundColor = UIColor.red
+        settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        settingButton.setImage(#imageLiteral(resourceName: "setting"), for: .normal)
+        //settingButton.backgroundColor = UIColor(patternImage: UIImage(cgImage: #imageLiteral(resourceName: "setting") as! CGImage))
         settingButton.addTarget(self, action: #selector(settingButtonAction), for: .touchUpInside)
         
         self.view.addSubview(locationButton)
