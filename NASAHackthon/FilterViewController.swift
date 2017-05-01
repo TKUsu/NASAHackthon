@@ -24,7 +24,7 @@ class FilterViewController: UIViewController {
     var FilterLebleText2 : UILabel!
     var FilterLebleText3 : UILabel!
     var AllLabel :UILabel!
-    var OnClickSelect : Set<Int> = Set()
+    var mySet: Set<Int> = Set()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +48,7 @@ class FilterViewController: UIViewController {
         
         AllSwitch = UISwitch(frame: CGRect(x: 0, y: 0, width: 150, height: 100))
         AllSwitch.onTintColor = UIColor.green
+        AllSwitch.addTarget(self, action: #selector(AllSwitchd), for: .allEvents)
         
         view.addSubview(AllSwitch)
         
@@ -114,11 +115,10 @@ class FilterViewController: UIViewController {
         
         view.addConstraints([setting_XlebelConstraint1 , setting_YlebelConstraint1 ,setting_XlebelConstraint2 , setting_YlebelConstraint2 ,setting_XlebelConstraint3 , setting_YlebelConstraint3 , setting_XlebelConstraint4 ,
             setting_YlebelConstraint4])
-}
-    
-    
 
-
+        
+        }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -126,9 +126,9 @@ class FilterViewController: UIViewController {
     
     //Return segue: getsetting
     func okAction() {
-        
         var temp_location = CLLocation(latitude: 72, longitude: 100)
 
+        type = checkType()
         url_get(location: temp_location, type: type){
             (result) in
             self.result = result
@@ -147,6 +147,49 @@ class FilterViewController: UIViewController {
             }else{
                 print(segue.destination)
             }
+        }
+    }
+    
+    func checkType() -> String {
+        var types: String!
+        
+                if FilterSwitch1.isOn {
+                    mySet.insert(1)
+                }else{
+                    mySet.remove(1)
+                }
+                if FilterSwitch2.isOn {
+                    mySet.insert(2)
+                }else{
+                    mySet.remove(2)
+                }
+                if FilterSwitch3.isOn {
+                    mySet.insert(3)
+                }else{
+                    mySet.remove(3)
+                }
+        print("",String(describing: mySet))
+        return String(describing: mySet)
+    }
+    
+    func AllSwitchd() {
+        if AllSwitch.isOn {
+            for i in 1...3{
+                mySet.insert(i)
+            }
+            FilterSwitch1.isEnabled = false
+            FilterSwitch2.isEnabled = false
+            FilterSwitch3.isEnabled = false
+            FilterSwitch1.setOn(true, animated: true)
+            FilterSwitch2.setOn(true, animated: true)
+            FilterSwitch3.setOn(true, animated: true)
+        }else{
+            FilterSwitch1.isEnabled = true
+            FilterSwitch2.isEnabled = true
+            FilterSwitch3.isEnabled = true
+            FilterSwitch1.setOn(false, animated: true)
+            FilterSwitch2.setOn(false, animated: true)
+            FilterSwitch3.setOn(false, animated: true)
         }
     }
 

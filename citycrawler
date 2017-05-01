@@ -1,0 +1,187 @@
+# coding=utf-8
+import wikipedia
+import requests
+import time
+import urllib.request
+from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
+from decimal import Decimal
+
+"""#safe
+"""
+cities = [
+"Abuja",
+"Accra",
+"Addis Ababa",
+"Algiers",
+"Alofi",
+"Amman",
+"Ankara",
+"Antananarivo",
+"Apia",
+"Ashgabat",
+"Asmara",
+"Astana",
+"Asuncion",
+"Athens",
+"Baghdad",
+"Baku",
+"Bamako",
+"Bangkok",
+"Bangui",
+"Banjul",
+"Basseterre",
+"Beijing",
+"Beirut",
+"Belgrade",
+"Belmopan",
+"Berlin",
+"Bern",
+"Bishkek",
+"Bissau",
+"Bogota",
+"Brasilia",
+"Bratislava",
+"Brazzaville",
+"Bridgetown",
+"Brussels",
+"Bucharest",
+"Budapest",
+"Bujumbura",
+"Cairo",
+"Canberra",
+"Caracas",
+"Castries",
+"Chisinau",
+"Conakry",
+"Copenhagen",
+"Dakar",
+"Damascus",
+"Dhaka",
+"Djibouti",
+"Doha",
+"Dublin",
+"Freetown",
+"Funafuti",
+"Hanoi",
+"Harare",
+"Havana",
+"Helsinki",
+"HongKong",
+"Honiara",
+"Islamabad",
+"Jakarta",
+"Jerusalem",
+"Kabul",
+"Kampala",
+"Kathmandu",
+"Khartoum",
+"Kiev",
+"Kigali",
+"Kinshasa",
+"Laayoune",
+"Libreville",
+"Lilongwe",
+"Lima",
+"Lisbon",
+"Ljubljana",
+"London",
+"Luanda",
+"Lusaka",
+"Madrid",
+"Majuro",
+"Managua",
+"Manama",
+"Manila",
+"Maputo",
+"Maseru",
+"Melekeok",
+"Minsk",
+"Mogadishu",
+"Monaco",
+"Monrovia",
+"Moscow",
+"Nairobi",
+"Niamey",
+"Nicosia",
+"Nicosia",
+"Nouakchott",
+"Oslo",
+"Ottawa",
+"Ouagadougou",
+"Palikir",
+"Panama",
+"Paramaribo",
+"Paris",
+"Port-of-Spain",
+"Prague",
+"Praia",
+"Pyongyang",
+"Quito",
+"Rabat",
+"Rangoon",
+"Reykjavik",
+"Riga",
+"Riyadh",
+"Rome",
+"Roseau",
+"Santiago",
+"Sarajevo",
+"Seoul",
+"Shanghai",
+"Singapore",
+"Skopje",
+"Sofia",
+"Stockholm",
+"Suva",
+"Taipei",
+"Tallinn",
+"Tarawa",
+"Tashkent",
+"Tbilisi",
+"Tegucigalpa",
+"Tehran",
+"Thimphu",
+"Tirana",
+"Tokyo",
+"Tripoli",
+"Tunis",
+"Ulaanbaatar",
+"Vaduz",
+"Valletta",
+"Vienna",
+"Vientiane",
+"Vilnius",
+"Warsaw",
+"Wellington",
+"Windhoek",
+"Yerevan",
+"Zagreb"]
+
+f = open('city', 'w')
+
+for list in cities:
+    #list contains all cities
+    city = wikipedia.page(list)
+    print(list)
+    url = city.url
+    #url is reference
+    lat = round(wikipedia.WikipediaPage(list).coordinates[0],8)
+    long = round(wikipedia.WikipediaPage(list).coordinates[1],8)
+    print(str(lat)+','+ str(long))
+    image = wikipedia.WikipediaPage(list).images[1]
+    text = wikipedia.search(list)
+    summary = wikipedia.summary(list, sentences = 5)
+    summary = summary + "  For more:" + url
+    #summary is description
+    print(summary)
+    print(url)
+    print(image)
+
+    f.write(list+'\n')
+    f.write(str(lat)+','+str(long)+'\n')
+    f.write(summary+'\n')
+    f.write(url+'\n')
+    f.write(image+'\n\n')
+    # python will convert \n to os.linesep  
+f.close()

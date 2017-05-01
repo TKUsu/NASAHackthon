@@ -30,13 +30,12 @@ class ViewController: UIViewController  {
         startLocaitonManager()
         
         locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        locationButton.setImage(#imageLiteral(resourceName: "locationImg"), for: .normal)
+        locationButton.setImage(, for: .normal)
        
         locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         
         settingButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         settingButton.setImage(#imageLiteral(resourceName: "settingImg"), for: .normal)
-        //settingButton.backgroundColor = UIColor(patternImage: UIImage(cgImage: #imageLiteral(resourceName: "setting") as! CGImage))
         settingButton.addTarget(self, action: #selector(settingButtonAction), for: .touchUpInside)
         
         self.view.addSubview(locationButton)
