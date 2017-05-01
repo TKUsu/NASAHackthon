@@ -151,23 +151,21 @@ class FilterViewController: UIViewController {
     }
     
     func checkType() -> String {
-        var types: String!
-        
-                if FilterSwitch1.isOn {
-                    mySet.insert(1)
-                }else{
-                    mySet.remove(1)
-                }
-                if FilterSwitch2.isOn {
-                    mySet.insert(2)
-                }else{
-                    mySet.remove(2)
-                }
-                if FilterSwitch3.isOn {
-                    mySet.insert(3)
-                }else{
-                    mySet.remove(3)
-                }
+        if FilterSwitch1.isOn {
+            mySet.insert(1)
+        }else{
+            mySet.remove(1)
+        }
+        if FilterSwitch2.isOn {
+            mySet.insert(2)
+        }else{
+            mySet.remove(2)
+        }
+        if FilterSwitch3.isOn {
+            mySet.insert(3)
+        }else{
+            mySet.remove(3)
+        }
         print("",String(describing: mySet))
         return String(describing: mySet)
     }

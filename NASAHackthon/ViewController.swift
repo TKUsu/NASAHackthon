@@ -30,7 +30,7 @@ class ViewController: UIViewController  {
         startLocaitonManager()
         
         locationButton = UIButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        locationButton.setImage(, for: .normal)
+        locationButton.setImage(#imageLiteral(resourceName: "locationImg"), for: .normal)
        
         locationButton.addTarget(self, action: #selector(locationButtonAction), for: .touchUpInside)
         
