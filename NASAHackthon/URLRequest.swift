@@ -34,8 +34,8 @@ func url_get(location: CLLocation, type: String, callback: @escaping ((_ Result:
              Problem: result data could been [[serialization Json]], so should been flatMap
             */
             var result = Dictionary<String, Any>()
-            if let result_data = response.result.value {
-                print("Result data: \(result_data)")
+            if let response_result = response.result.value {
+//                print("Result data: \(response_result)")
 //                print(response)
                 //to get status code
                 if let status = response.response?.statusCode {
@@ -47,23 +47,38 @@ func url_get(location: CLLocation, type: String, callback: @escaping ((_ Result:
                     }
                 }
                 //to get JSON return value
-                let result_json = result_data as? [[String: Any]]
-                result = (result_json?[0])! as! Dictionary
-//                result = temp[0] as! Dictionary<String, Any>
-                print("=================================\(result.index(forKey: "local_id"))")
+                let result_json = response_result as? [[String: Any]]
+                print("result_json: \(result_json)")
+                var result_array: [Dictionary<String, Any>]! = [["":""]]
+                print("result_array: \(result_array)")
+                for i in 0 ..< result_json!.count{
+                    let dic = result_json![i] as! Dictionary<String, Any> ;
+                    result_array.append(dic)
+                    print("( \(i) )foreach result:", dic) ;
+                    
+                    if let alt = dic["latitude"] as? Double {
+                        print("alt: \(alt)")
+                    }
+
+                }
+                result = result_array[0] as! Dictionary
+                let temp = result.index(forKey: "altitude")
+                //                result = temp[0] as! Dictionary<String, Any>
+                print("=================================\(result.index(forKey: "local_id"))=========\(temp)")
 //
 //                if let result_json = result_data as? [[String: Any]] {
 //                    print("\(result_json)")
 //                    for j in 0 ..< result_array.count{
 //                        let result_array =
-//                        let result_KeyValue = result_array[j].flatMap{$0}
+//                        let res#0	0x000000010d44c87e in (url_get(location : CLLocation, type : String, callback : ([String : Any]) -> ()) -> ()).(closure #1) at /Users/sujustin/Code/Hankthon/NASAHackthon/NASAHackthon/URLRequest.swift:79
+//ult_KeyValue = result_array[j].flatMap{$0}
 ////                      print("Get result \(result_KeyValue) end index: \(result_KeyValue.endIndex)")
 //                    
 //                        for i in 0 ..< result_KeyValue.endIndex{
 //                            result.updateValue(result_KeyValue[i].value, forKey: result_KeyValue[i].key)
 //                            print("result add \(result_KeyValue[i].key): \(result_KeyValue[i].value)")
 //                        }
-//                        callback(result)
+                        callback(result)
 //                    }
 //                }
             }
